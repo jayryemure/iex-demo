@@ -69,7 +69,7 @@ function StockDetails() {
                             </Form.Control.Feedback>
                         }
                         <Form.Text className="text-muted">
-                            Enter ticket symbol to add it to the table below
+                            Enter ticker symbol to add it to the table below
                         </Form.Text>
                     </Form.Group>
                 </Form.Row>
