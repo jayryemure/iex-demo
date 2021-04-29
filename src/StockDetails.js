@@ -8,7 +8,6 @@ function StockDetails() {
 
     const [form, setForm] = useState({})
     const [results, setResults] = useState([])
-    const [validated, setValidated] = useState(false);
     const [customValidation, setCustomValidation] = useState(null);
 
     const setField = (field, value) => {
