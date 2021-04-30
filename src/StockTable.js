@@ -1,8 +1,5 @@
 import React from 'react';
 import { Table, Button } from 'react-bootstrap';
-//const { Client } = require("iexjs");
-
-//const client = new Client({ api_token: "Tpk_9798a473127d47489effffb395d3e420", version: "sandbox" });
 
 function StockTable(props) {
 
