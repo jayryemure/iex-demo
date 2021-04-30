@@ -5,9 +5,15 @@ const { Client } = require("iexjs");
 
 const client = new Client({ api_token: "Tpk_9798a473127d47489effffb395d3e420", version: "sandbox" });
 
+// Adds extra loading time to simulate longer network requests
+function simulateNetworkRequest(time) {
+    return new Promise((resolve) => setTimeout(resolve, time));
+};
+
 function StockDetails() {
 
     const [form, setForm] = useState({})
+    const [isLoading, setLoading] = useState(false);
     const [results, setResults] = useState([])
     const [customValidation, setCustomValidation] = useState(null);
 
@@ -24,7 +30,7 @@ function StockDetails() {
         const { symbol } = form
 
         // Symbol errors
-        if (!symbol || symbol === '' ) {
+        if (!symbol || symbol === '') {
             return 'Symbol is required!'
         } else if (customValidation) {
             return customValidation;
@@ -44,12 +50,16 @@ function StockDetails() {
                 return;
             }
 
-            client.quote(symbol).then((e) => {
-                setResults(results => [...results, e]);
-            }).catch((e) => {
-                setCustomValidation(e.toString());
-                console.log(e);
-            })
+            setLoading(true);
+            simulateNetworkRequest(500).then(() => {
+                client.quote(symbol).then((e) => {
+                    setLoading(false);
+                    setResults(results => [...results, e]);
+                }).catch((e) => {
+                    setCustomValidation(e.toString());
+                    console.log(e);
+                })
+            });
         }
     };
 
@@ -69,14 +79,14 @@ function StockDetails() {
                 <Form.Row>
                     <Form.Group controlId="validationCustom01">
                         <Form.Label>Ticker symbol</Form.Label>
-                        <Form.Control 
-                            type="text" 
-                            placeholder="Enter ticker symbol" 
+                        <Form.Control
+                            type="text"
+                            placeholder="Enter ticker symbol"
                             isInvalid={getFormError()}
                             onChange={e => setField('symbol', e.target.value)} />
-                        { customValidation && 
+                        {customValidation &&
                             <Form.Control.Feedback type="invalid">
-                                { customValidation }
+                                {customValidation}
                             </Form.Control.Feedback>
                         }
                         <Form.Text className="text-muted">
@@ -84,11 +94,15 @@ function StockDetails() {
                         </Form.Text>
                     </Form.Group>
                 </Form.Row>
-                <Button type="buttom" disabled={getFormError()}>Submit</Button>
+                <Button
+                    type="buttom"
+                    disabled={isLoading || getFormError()}>
+                    {isLoading ? 'Loading…' : 'Submit'}
+                </Button>
             </Form>
 
             { results.length > 0 &&
-                <StockTable stocks={results} onRefresh={(e) => handleRefresh(e)}/>
+                <StockTable stocks={results} onRefresh={(e) => handleRefresh(e)} />
             }
         </>
     );
