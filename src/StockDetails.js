@@ -74,6 +74,13 @@ function StockDetails() {
         })
     };
 
+    const handleRemove = (stock) => {
+        const updateResults = results.filter(x => {
+            return x.symbol !== stock.symbol;
+        });
+        setResults(updateResults);
+    };
+
     return (
         <>
             <Form noValidate onSubmit={handleSubmit}>
@@ -103,7 +110,7 @@ function StockDetails() {
             </Form>
 
             { results.length > 0 &&
-                <StockTable stocks={results} onRefresh={(e) => handleRefresh(e)} />
+                <StockTable stocks={results} onRefresh={(e) => handleRefresh(e)} onRemove={(e) => handleRemove(e)}/>
             }
         </>
     );

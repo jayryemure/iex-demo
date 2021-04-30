@@ -24,6 +24,7 @@ function StockTable(props) {
                             <td>{Math.round(((e.changePercent * 100) + Number.EPSILON) * 100) / 100} %</td>
                             <td className="Cell-left-align" >{e.companyName}</td>
                             <td><Button variant="info" onClick={() => props.onRefresh(e)}>Refresh</Button></td>
+                            <td><Button variant="danger" onClick={() => props.onRemove(e)}>x</Button></td>
                         </tr>
                     )}
                 </tbody>
