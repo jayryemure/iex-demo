@@ -56,6 +56,7 @@ function StockDetails() {
                     setLoading(false);
                     setResults(results => [...results, e]);
                 }).catch((e) => {
+                    setLoading(false);
                     setCustomValidation(e.toString());
                     console.log(e);
                 })
