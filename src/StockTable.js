@@ -12,6 +12,7 @@ function StockTable(props) {
                         <th>Latest Price</th>
                         <th>Change</th>
                         <th>Change Percent</th>
+                        <th>Company Name</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -21,6 +22,7 @@ function StockTable(props) {
                             <td>{e.latestPrice}</td>
                             <td>{e.change}</td>
                             <td>{Math.round(((e.changePercent * 100) + Number.EPSILON) * 100) / 100} %</td>
+                            <td className="Cell-left-align" >{e.companyName}</td>
                             <td><Button variant="info" onClick={() => props.onRefresh(e)}>Refresh</Button></td>
                         </tr>
                     )}

@@ -27,3 +27,7 @@
 .App-table {
   padding-top: 1em;
 }
+
+.App-table .Cell-left-align {
+  text-align: left;
+}
